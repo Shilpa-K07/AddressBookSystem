@@ -116,5 +116,13 @@ public class AddressBookDao {
 		person.setAddress(scannerObject.next());
 		System.out.println("Address edited !!");
 	}
-	
+
+	//UC-4
+	void deleteContact()
+	{
+		System.out.println("Enter the name of the person to delete");
+		String personName = scannerObject.next();
+		personMap.remove(personName);
+		System.out.println("Details deleted");
+	}	
 }

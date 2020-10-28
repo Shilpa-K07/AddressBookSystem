@@ -6,5 +6,6 @@ public class AddressBookSystem {
 		AddressBookDao addressBook = new AddressBookDao();
 		addressBook.addContact();
 		addressBook.editContact();		
+		addressBook.deleteContact();
 	}
 }
