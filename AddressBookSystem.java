@@ -4,6 +4,8 @@ public class AddressBookSystem {
 	public static void main(String[] args)
 	{
 		AddressBookDao addressBook = new AddressBookDao();
-		addressBook.addMultipleContact();
+		addressBook.addNewAddressBook();
+		addressBook.addNewAddressBook();
+		addressBook.displayAddressBook();
 	}
 }

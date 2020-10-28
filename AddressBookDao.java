@@ -1,14 +1,13 @@
 package com.addresssbooksystem;
 
 public class AddressBookDao {
-
-	HashMap<String,PersonEntity> personMap = new HashMap<String, PersonEntity>();
+	HashMap<String, ArrayList<HashMap>> addressBookDict = new HashMap<String,ArrayList<HashMap>>();
 	Scanner scannerObject = new Scanner(System.in);
-
-	//UC-2
-	void addContact()
+	
+	HashMap addContact(String addressBookName)
 	{
 		PersonEntity person = new PersonEntity();
+		HashMap<String,PersonEntity> personMap = new HashMap<String, PersonEntity>();
 		
 		System.out.println("Enter first name: ");
 		String personName=scannerObject.next();
@@ -37,11 +36,12 @@ public class AddressBookDao {
 		
 		personMap.put(personName, person);
 		System.out.println("Contact added !!");
+		return personMap;
 	}
 
-	//UC-5
-	void addMultipleContact()
+	void addMultipleContact(String addressBookName)
 	{
+		ArrayList<HashMap> personMapList = new ArrayList<HashMap>();
 		while(true)
 		{
 			System.out.println("Want to add contact ?");
@@ -51,7 +51,7 @@ public class AddressBookDao {
 			switch(option)
 			{
 				case 1:
-					addContact();
+					personMapList.add(addContact(addressBookName));
 					break;
 				case 2:
 					System.out.println("Exiting..");
@@ -60,6 +60,40 @@ public class AddressBookDao {
 			}
 			if(option == 2)
 				break;
+		}
+		addressBookDict.put(addressBookName, personMapList);
+	}
+	//UC-6
+	void addNewAddressBook()
+	{
+		System.out.println("Enter name of address book");
+		String addressBookName = scannerObject.next(); 
+		addMultipleContact(addressBookName);
+	}
+	void displayAddressBook()
+	{
+		Set set = addressBookDict.entrySet();
+		Iterator iterator = set.iterator();
+		while(iterator.hasNext())
+		{
+			Map.Entry entry = (Map.Entry)iterator.next();
+			System.out.println("addresbookname: "+entry.getKey());
+			ArrayList<HashMap>list =addressBookDict.get(entry.getKey());
+			
+			for(int i=0;i<list.size();i++)
+			{
+				HashMap<String,PersonEntity> hashMap = list.get(i);
+				
+				Set hashSet = hashMap.entrySet();
+				Iterator hashSetIterator = hashSet.iterator();
+				while(hashSetIterator.hasNext())
+				{
+					Map.Entry hashEntry = (Map.Entry)hashSetIterator.next();
+					System.out.println("Key: "+hashEntry.getKey());
+					PersonEntity person = hashMap.get(hashEntry.getKey());
+					System.out.println("Value is : " +person.getFirstName());
+				}
+			}
 		}
 	}
 }
